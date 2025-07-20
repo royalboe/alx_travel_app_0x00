@@ -1,4 +1,4 @@
-# alx_travel_app
+# alx_travel_app_0x00
 
 A robust Django-based backend for a travel listing platform, developed as part of an ALX backend milestone. This project introduces foundational best practices in Django backend architecture, database integration, API documentation, and scalable project configuration.
 
