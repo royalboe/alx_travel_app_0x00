@@ -14,6 +14,7 @@ class Listing(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     location = models.CharField(max_length=255)
     currency = models.CharField(max_length=3, default='NGN')
+    host = models.ForeignKey(User, on_delete=models.CASCADE, related_name='listings')
 
     def __str__(self):
         return self.name
