@@ -11,9 +11,11 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # Get or create superuser
-        user = User.objects.filter(username='admin').first()
-        if not user:
-            user = User.objects.create_superuser(username='admin', password='test')
+        users = User.objects.all()
+        if len(users) < 4:
+            usernames = ['Ayomide', 'Admin', 'Test', 'Gogo']
+            for i in range(4):
+                users.append(User.objects.create_superuser(username=usernames[i], password='test'))
 
             # create products - name, desc, price, stock, image
         listings = [
