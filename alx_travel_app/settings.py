@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'drf_yasg',  # Swagger documentation
+    'listings',  # Your app
 ]
 
 MIDDLEWARE = [
@@ -86,19 +87,33 @@ WSGI_APPLICATION = 'alx_travel_app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    # read os.environ['DATABASE_URL'] and raises
-    # ImproperlyConfigured exception if not found
-    #
-    # The db() method is an alias for db_url().
-    'default': env.db(),
+# DATABASES = {
+#     # read os.environ['DATABASE_URL'] and raises
+#     # ImproperlyConfigured exception if not found
+#     #
+#     # The db() method is an alias for db_url().
+#     'mysql': env.db(),
+#     # 'default': env.db(),
+    
 
-    # read os.environ['SQLITE_URL']
-    'extra': env.db_url(
-        'SQLITE_URL',
-        default='sqlite:////tmp/my-tmp-sqlite.db'
-    )
-}
+#     # read os.environ['SQLITE_URL']
+#     'default': env.db_url(
+#         'SQLITE_URL',
+#         default='sqlite:////tmp/my-tmp-sqlite.db'
+#     )
+# }
+
+
+# Conditional database config
+if DEBUG:
+    DATABASES = {
+        'default': env.db_url('SQLITE_URL', default='sqlite:///dev.sqlite3'),
+        'mysql': env.db(),  # optional, available if needed
+    }
+else:
+    DATABASES = {
+        'default': env.db(),  # uses DATABASE_URL (MySQL in production)
+    }
 
 
 # Password validation
@@ -136,6 +151,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+
+AUTH_USER_MODEL = 'listings.User'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
