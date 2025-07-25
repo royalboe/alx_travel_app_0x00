@@ -14,3 +14,5 @@ downloads/
 eggs/
 eggs-info/
 .idea/
+.vscode/
+.installed.cfg
